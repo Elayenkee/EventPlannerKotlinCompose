@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "873649386694",
+    "project_id": "eventplanner-74054",
+    "storage_bucket": "eventplanner-74054.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:873649386694:android:2c13cbad1ef37db36093c7",
+        "android_client_info": {
+          "package_name": "fr.alemanflorian.eventplanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "873649386694-328gka22668njgis8cacpu151mvdltvh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4wvBjrW7FQ6KhPyzsXVRtZrD59krHPOk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "873649386694-328gka22668njgis8cacpu151mvdltvh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
