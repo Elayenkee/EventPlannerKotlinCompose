@@ -4,24 +4,19 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import fr.alemanflorian.eventplanner.ui.theme.EventPlannerTheme
-import com.google.firebase.auth.FirebaseAuth
+import fr.alemanflorian.eventplanner.ui.theme.AppColors
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            EventPlannerTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-                    Greeting("Android 2")
-                }
+            Surface(modifier = Modifier.fillMaxSize(), color = AppColors.main) {
+                Greeting("Android 2")
             }
         }
 
@@ -44,7 +39,5 @@ fun Greeting(name: String) {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    EventPlannerTheme {
-        Greeting("Android")
-    }
+    Greeting("Android")
 }
