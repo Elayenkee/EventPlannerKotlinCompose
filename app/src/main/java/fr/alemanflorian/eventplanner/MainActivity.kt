@@ -5,16 +5,19 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.core.view.WindowCompat
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import fr.alemanflorian.eventplanner.ui.theme.AppColors
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
+class MainActivity : ComponentActivity()
+{
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
-        setContent {
+        /*setContent {
             Surface(modifier = Modifier.fillMaxSize(), color = AppColors.main) {
                 Greeting("Android 2")
             }
@@ -26,18 +29,16 @@ class MainActivity : ComponentActivity() {
             }
             .addOnFailureListener {
                 println("FAIL >> $it")
-            }*/
-        println("OUI")
+            }*/*/
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        setContent {
+            Surface(modifier = Modifier.fillMaxSize(), color = AppColors.main) {
+                val navController = rememberNavController()
+                NavHost(navController, startDestination = "login") {
+                    composable("login") { LoginWidget(navController) }
+                }
+            }
+        }
     }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    Greeting("Android")
 }
