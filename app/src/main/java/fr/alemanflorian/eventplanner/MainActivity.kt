@@ -11,11 +11,18 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import fr.alemanflorian.eventplanner.ui.theme.AppColors
+import fr.alemanflorian.eventplanner.user.AppUser
+import fr.alemanflorian.eventplanner.utils.Utils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : ComponentActivity()
 {
     override fun onCreate(savedInstanceState: Bundle?)
     {
+        Utils.context = applicationContext;
         super.onCreate(savedInstanceState)
         /*setContent {
             Surface(modifier = Modifier.fillMaxSize(), color = AppColors.main) {
@@ -30,15 +37,29 @@ class MainActivity : ComponentActivity()
             .addOnFailureListener {
                 println("FAIL >> $it")
             }*/*/
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+        //WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
             Surface(modifier = Modifier.fillMaxSize(), color = AppColors.main) {
-                val navController = rememberNavController()
-                NavHost(navController, startDestination = "login") {
-                    composable("login") { LoginWidget(navController) }
+
+            }
+        }
+
+        GlobalScope.launch (Dispatchers.IO){
+            AppUser.load()
+            withContext(Dispatchers.Main)
+            {
+                setContent {
+                    Surface(modifier = Modifier.fillMaxSize(), color = AppColors.main) {
+                        val navController = rememberNavController()
+                        NavHost(navController, startDestination = "login") {
+                            composable("login") { LoginWidget().build(navController) }
+                        }
+                    }
                 }
             }
         }
+
+
     }
 }
