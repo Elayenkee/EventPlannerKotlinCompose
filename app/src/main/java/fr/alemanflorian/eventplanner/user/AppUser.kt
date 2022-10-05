@@ -4,6 +4,7 @@ import android.content.Context
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import fr.alemanflorian.eventplanner.utils.Utils
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.tasks.await
 
 class AppUser constructor(val uid:String, map:Map<String, Any>)
@@ -19,12 +20,19 @@ class AppUser constructor(val uid:String, map:Map<String, Any>)
         events = if (map.containsKey("events")) (map.get("events") as List<*>) else listOf<String>()
     }
 
+    /*@Override
+    fun toString():String {
+        return name
+    }*/
+
+    override fun toString(): String = name
+
     companion object
     {
         var _instance: AppUser? = null
         fun set(user: AppUser){
-            _instance = user;
-            save();
+            _instance = user
+            save()
         }
 
         fun save()
@@ -59,7 +67,7 @@ class AppUser constructor(val uid:String, map:Map<String, Any>)
         suspend fun load():AppUser?
         {
             val preferences = Utils.context.getSharedPreferences("EventPlanner", Context.MODE_PRIVATE)
-            var uid = preferences.getString("uidUser", null)
+            var uid: String? = null//"7eaQk2BW5HVUGyyeEhh5Drauwur1"//preferences.getString("uidUser", null)
             if(uid == null || uid!!.length < 3)
                 return null;
 
@@ -67,7 +75,7 @@ class AppUser constructor(val uid:String, map:Map<String, Any>)
             val doc = docUser.get().await()
             val user = AppUser(doc.id, doc.data as (Map<String, Any>))
             set(user)
-            return _instance;
+            return _instance
         }
     }
 
