@@ -8,14 +8,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.CalendarViewMonth
-import androidx.compose.material.icons.outlined.CalendarViewWeek
-import androidx.compose.material.icons.outlined.EditCalendar
+import androidx.compose.material.*
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -24,13 +17,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.LiveData
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import com.google.firebase.firestore.*
+import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import fr.alemanflorian.eventplanner.R
@@ -82,8 +76,10 @@ fun content()
 @Composable
 fun itemEvent(event: Event)
 {
+    val user = AppUser.get()
     val cornerRadius = 8.dp
     var team by remember { mutableStateOf(TeamViewModel(event.uidTeam)) }
+    val participation = if (event.oui.contains(user.uid)) 0  else if (event.maybe.contains(user.uid)) 1 else if (event.non.contains(user.uid)) 2 else -1
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(cornerRadius),
@@ -124,7 +120,35 @@ fun itemEvent(event: Event)
                     )
                 }
             }
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = event.name,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Row(modifier = Modifier.fillMaxWidth()) {
+                bouton(modifier = Modifier.fillMaxWidth().weight(1f), participation == 0)
+                Spacer(modifier = Modifier.size(15.dp))
+                bouton(modifier = Modifier.fillMaxWidth().weight(1f), participation == 1)
+                Spacer(modifier = Modifier.size(15.dp))
+                bouton(modifier = Modifier.fillMaxWidth().weight(1f), participation == 2)
+            }
         }
+    }
+}
+
+@Composable
+fun bouton(modifier: Modifier, selected: Boolean)
+{
+    Button(
+        onClick = { /*TODO*/ },
+        modifier = modifier,
+        colors = ButtonDefaults.buttonColors(backgroundColor = if(selected) AppColors.app else AppColors.app.copy(alpha = .5f)),
+    )
+    {
+
     }
 }
 
