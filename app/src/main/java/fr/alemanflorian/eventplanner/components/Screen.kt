@@ -18,7 +18,7 @@ import fr.alemanflorian.eventplanner.ui.theme.AppColors
 import fr.alemanflorian.eventplanner.user.AppUser
 
 @Composable
-fun screenCreate(child: (@Composable() () -> Unit)? = null, bottom: (@Composable() () -> Unit)? = null)
+fun screenCreate(child: (@Composable () -> Unit)? = null, bottom: (@Composable () -> Unit)? = null)
 {
     Scaffold(
         backgroundColor = AppColors.third
@@ -37,7 +37,7 @@ fun screenCreate(child: (@Composable() () -> Unit)? = null, bottom: (@Composable
                 {
                     if (child != null)
                     {
-                        child
+                        child()
                     }
                 }
                 if (bottom != null)

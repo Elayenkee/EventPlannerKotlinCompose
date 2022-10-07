@@ -53,6 +53,7 @@ import kotlinx.coroutines.tasks.await
 fun login(navController: NavController?, viewModel: AppUserViewModel, modifier:Modifier = Modifier)
 {
     println("${System.currentTimeMillis()} : LoginWidget.build ${viewModel.user.value}")
+    var user by remember { mutableStateOf(viewModel) }
     var pseudo by remember { mutableStateOf("Matof") }
     var errorPseudo by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("florian.aleman@gmail.com") }
@@ -72,13 +73,13 @@ fun login(navController: NavController?, viewModel: AppUserViewModel, modifier:M
 
     val keyboard = LocalSoftwareKeyboardController.current
 
-    if(viewModel.loading.value)
+    if(user.loading.value)
     {
         Text(text = "Loading", color = Color.White)
         return
     }
 
-    if(viewModel.user.value != null)
+    if(user.user.value != null)
     {
         navController?.navigate("home"){
             launchSingleTop = true
