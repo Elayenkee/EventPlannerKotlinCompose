@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity()
         val viewModel = AppUserViewModel()
 
         setContent {
-            Surface(modifier = Modifier.fillMaxSize(), color = AppColors.main) {
+            Surface(modifier = Modifier.fillMaxSize(), color = AppColors.third) {
                 val navController = rememberNavController()
                 NavHost(navController, startDestination = "login") {
                     composable("login") { login(navController, viewModel) }

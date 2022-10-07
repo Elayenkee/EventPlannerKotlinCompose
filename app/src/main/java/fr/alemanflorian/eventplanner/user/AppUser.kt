@@ -67,7 +67,7 @@ class AppUser constructor(val uid:String, map:Map<String, Any>)
         suspend fun load():AppUser?
         {
             val preferences = Utils.context.getSharedPreferences("EventPlanner", Context.MODE_PRIVATE)
-            var uid: String? = null//"7eaQk2BW5HVUGyyeEhh5Drauwur1"//preferences.getString("uidUser", null)
+            var uid: String? = "7eaQk2BW5HVUGyyeEhh5Drauwur1"//preferences.getString("uidUser", null)
             if(uid == null || uid!!.length < 3)
                 return null;
 
